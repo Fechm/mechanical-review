@@ -99,6 +99,10 @@ const fases = [
   },
   { id: 'forma', comando: guion('npx eslint .', ['lint:check', 'code:check', 'lint']), nivelMinimo: 0, bloquea: true },
   { id: 'aserciones', interno: 'check-aserciones.mjs', nivelMinimo: 0, bloquea: true },
+  // nivelMinimo 0: un paquete alucinado entra igual por un cambio "periferico", y es la
+  // unica valla que cubre ese fallo. Barata (sin red, sin instalar) y sin falsos
+  // positivos conocidos, asi que no hay razon para reservarla a los niveles altos.
+  { id: 'dependencias', interno: 'check-dependencias.mjs', nivelMinimo: 0, bloquea: true },
   { id: 'especificacion', interno: 'check-especificacion.mjs', nivelMinimo: 1, bloquea: true },
   {
     id: 'tests',

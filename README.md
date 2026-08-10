@@ -118,7 +118,7 @@ que traer la suya.
 
 ---
 
-## Las diez vallas
+## Las once vallas
 
 | # | Valla | Gate | ¿Se ejecuta? |
 | - | ----- | ---- | ------------ |
@@ -131,10 +131,11 @@ que traer la suya.
 | 7 | **Mutación acotada** | **cero mutantes vivos sin justificación** | ✅ bloquea |
 | 8 | Secretos | 0 hallazgos nuevos en el diff (gitleaks) | ✅ bloquea |
 | 9 | Invariantes de esquema | cada invariante declarada tiene soporte mecánico | ✅ bloquea |
-| 10 | Lectura adversarial | firmada por un humano en zona crítica | ❌ **es un acuerdo, no un gate** |
+| 10 | **Procedencia de dependencias** | todo import resuelve a algo declarado; dependencias nuevas presentes en el lockfile | ✅ bloquea |
+| 11 | Lectura adversarial | firmada por un humano en zona crítica | ❌ **es un acuerdo, no un gate** |
 
-Ocho se ejecutan y bloquean. **Las vallas 5 y 10 no**, y decirlo es parte del diseño: la 5 depende de
-que alguien copie una configuración de ESLint y nada verifica que esté pegada; la 10 depende de que
+Nueve se ejecutan y bloquean. **Las vallas 5 y 11 no**, y decirlo es parte del diseño: la 5 depende de
+que alguien copie una configuración de ESLint y nada verifica que esté pegada; la 11 depende de que
 alguien lea. Presentarlas como cubiertas sería el mismo defecto que la herramienta persigue.
 
 ## Los tres niveles
@@ -234,7 +235,7 @@ generados fue **rechazado por ingenieros que los leyeron**.
 ## Cómo se verifica a sí misma
 
 Una herramienta cuya tesis es *«un guarda que nunca se vio en rojo no está verificado»* no puede
-pedir eso y no cumplirlo. `test/` tiene **55 casos** derivados uno a uno de la tabla de
+pedir eso y no cumplirlo. `test/` tiene **67 casos** derivados uno a uno de la tabla de
 meta-aserciones, y la mayoría afirma que el guarda **falla**:
 
 ```bash
@@ -274,7 +275,7 @@ references/
   adopcion.md                 plan por fases y qué instalar con versión exacta
   costo.md                    cuánto suma por cambio y por corrida de CI
 scripts/                      los guardas (solo node + git)
-test/                         55 meta-aserciones: cada valla probada en rojo Y en verde
+test/                         67 meta-aserciones: cada valla probada en rojo Y en verde
 ```
 
 ## Trampas conocidas

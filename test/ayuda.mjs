@@ -82,6 +82,15 @@ export function commitear(repo, mensaje = 'cambio') {
   git(repo, 'commit', '-q', '-m', mensaje);
 }
 
+/**
+ * Mueve `origin/main` al HEAD actual: lo que venga despues queda "en el diff".
+ * Hace falta cuando el caso necesita un estado BASE no trivial — por ejemplo, un
+ * package.json previo contra el que comparar que dependencias son nuevas.
+ */
+export function marcarBase(repo) {
+  git(repo, 'update-ref', 'refs/remotes/origin/main', 'HEAD');
+}
+
 /** Config minima valida. `extra` se mezcla encima. */
 export function config(repo, extra = {}) {
   const base = {
