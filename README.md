@@ -234,7 +234,7 @@ generados fue **rechazado por ingenieros que los leyeron**.
 ## Cómo se verifica a sí misma
 
 Una herramienta cuya tesis es *«un guarda que nunca se vio en rojo no está verificado»* no puede
-pedir eso y no cumplirlo. `test/` tiene **35 casos** derivados uno a uno de la tabla de
+pedir eso y no cumplirlo. `test/` tiene **55 casos** derivados uno a uno de la tabla de
 meta-aserciones, y la mayoría afirma que el guarda **falla**:
 
 ```bash
@@ -274,7 +274,7 @@ references/
   adopcion.md                 plan por fases y qué instalar con versión exacta
   costo.md                    cuánto suma por cambio y por corrida de CI
 scripts/                      los guardas (solo node + git)
-test/                         35 meta-aserciones: cada valla probada en rojo Y en verde
+test/                         55 meta-aserciones: cada valla probada en rojo Y en verde
 ```
 
 ## Trampas conocidas
