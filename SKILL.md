@@ -376,6 +376,7 @@ por la que no puede caer en él. Si se agrega una valla nueva, **tiene que traer
 | `references/perfil-yarn-bitbucket.md` | cablear en yarn v1/Berry + Bitbucket + SonarCloud |
 | `references/adopcion.md` | plan por fases, primer sujeto, y qué instalar con versión exacta |
 | `references/evolucion.md` | el repo no calza con ningún perfil; un guarda se equivocó; calibrar un umbral |
+| `test/` | 35 meta-aserciones ejecutables; correr `npm test` antes y después de tocar un guarda |
 | `references/costo.md` | cuánto suma por cambio y por corrida de CI |
 
 ## Reglas de honestidad

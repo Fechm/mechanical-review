@@ -231,6 +231,33 @@ generados fue **rechazado por ingenieros que los leyeron**.
 
 ---
 
+## Cómo se verifica a sí misma
+
+Una herramienta cuya tesis es *«un guarda que nunca se vio en rojo no está verificado»* no puede
+pedir eso y no cumplirlo. `test/` tiene **35 casos** derivados uno a uno de la tabla de
+meta-aserciones, y la mayoría afirma que el guarda **falla**:
+
+```bash
+npm test
+```
+
+Tres decisiones del diseño de la suite, cada una por un modo de falla concreto:
+
+- **Los guardas se corren como procesos, no importando funciones.** El contrato de un guarda no es
+  «devuelve un objeto», es «sale con código 1 cuando tiene que bloquear». Un test que mira el
+  retorno de una función interna puede quedar verde mientras el guarda real aprueba.
+- **Cada caso arma un repo git de verdad** en el tmp del sistema. Un doble de git probaría el doble.
+- **Cada valla tiene casos de bloqueo Y de aprobación.** No es simetría estética: escribiendo esta
+  suite, los cuatro casos de bloqueo del piso de aserciones pasaban **por la razón equivocada** —
+  fallaban por falta de `alcance.json`, no por el defecto que decían probar. Los delataron los casos
+  de aprobación. Una suite de gates con solo la mitad que espera rojo es una suite verde que no
+  verifica nada.
+
+La suite se verificó rompiendo los guardas a propósito: neutralizar el bloqueo por sobrevivientes
+pone en rojo exactamente ese caso, reintroducir el bug de la 1.0.0 (contar `CompileError` como no
+cerrado) pone en rojo su test de regresión, y anular el piso de aserciones pone en rojo sus cuatro
+casos. Corre en cada PR sobre Node 18 y 24.
+
 ## Estructura
 
 ```
@@ -247,6 +274,7 @@ references/
   adopcion.md                 plan por fases y qué instalar con versión exacta
   costo.md                    cuánto suma por cambio y por corrida de CI
 scripts/                      los guardas (solo node + git)
+test/                         35 meta-aserciones: cada valla probada en rojo Y en verde
 ```
 
 ## Trampas conocidas

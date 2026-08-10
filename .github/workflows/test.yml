@@ -1,0 +1,43 @@
+# CI de la herramienta misma.
+#
+# POR QUE ESTO EXISTE: la tesis de mechanical-review es que un guarda que nunca se vio
+# en rojo no esta verificado. Sin esta suite corriendo en cada PR, la herramienta
+# dependeria de que alguien recuerde haberla roto a proposito una vez — que es
+# exactamente el estandar que le exige a los demas y no cumpliria ella.
+name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # 18 es el minimo declarado en engines; 24 es el actual. Los guardas ademas
+        # tienen que parsear en Node 14, pero eso lo cubre la regla de sintaxis
+        # (ni `??=` ni `replaceAll`), no el runner de tests.
+        node: [18, 24]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Los guardas resuelven la base con `git merge-base`. Con el checkout
+          # superficial por defecto no habria historia y el propio arnes no podria
+          # armar repos de prueba representativos.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Sintaxis de los guardas
+        run: |
+          for f in scripts/*.mjs scripts/lib/*.mjs; do
+            node --check "$f" || exit 1
+          done
+
+      - name: Suite de meta-aserciones
+        run: npm test
