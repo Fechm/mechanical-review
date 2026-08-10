@@ -1,0 +1,8 @@
+# Salida de las corridas (se regenera; nunca se versiona: un reporte viejo en disco
+# es uno de los modos de "verde falso" que esta herramienta persigue)
+.mechanical-review/out/
+reports/mutation/
+
+node_modules/
+*.log
+.DS_Store

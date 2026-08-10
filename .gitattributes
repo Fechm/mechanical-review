@@ -1,0 +1,4 @@
+# Normalizar finales de línea: el repo guarda LF siempre.
+# Sin esto, un colaborador en Windows produce un diff completo del archivo por CRLF
+# y la revisión del cambio real se pierde entre 400 líneas de ruido.
+* text=auto eol=lf
